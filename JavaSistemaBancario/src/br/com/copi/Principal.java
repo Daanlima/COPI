@@ -6,6 +6,7 @@
 package br.com.copi;
 
 import br.com.copi.conexao.Conectar;
+import br.com.copi.telas.TelaLogin;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
@@ -17,10 +18,12 @@ import java.util.Scanner;
 public class Principal {
 
     public static void main(String[] args) {
-        editarAgencia();
+        //deletarAgencia();
+        TelaLogin instanciaTelaLogin = new TelaLogin();
+        instanciaTelaLogin.setVisible(true);
          }
     
-        public static void adicionarAgencia() {
+        public static boolean adicionarAgencia(String numero, String nome) {
         
   
         String tabela = "agencias";
@@ -31,17 +34,20 @@ public class Principal {
 
         List<String> valores = new ArrayList<>();
         
+        valores.add(numero);
+        valores.add(nome);
+        
+        Conectar.inserirRegistro(tabela, colunas, valores);
+        
         
         Scanner reader = new Scanner(System.in);
         System.out.println("Digite o número da Agência:");
-        String numero = reader.next();
         valores.add(numero);
         
         System.out.println("Digite o nome da Agência:");
-        String nome = reader.next();
         valores.add(nome);
 
-        Conectar.inserirRegistro(tabela, colunas, valores);
+        return Conectar.inserirRegistro(tabela, colunas, valores);
      }
         
         public static void editarAgencia() {
